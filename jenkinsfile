@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+
+    parameters {
+        // Task 2: Define Boolean parameter RUN_TEST
+        booleanParam(name: 'RUN_TEST', defaultValue: true, description: 'Check to execute the test command')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Task 1: Checkout code from GitHub repository
+                // Replace 'YOUR_URL' and 'YOUR_BRANCH' with your actual repo details
+                git branch: 'main', url: 'https://github.com/username/repository.git'
+            }
+        }
+
+        stage('Execute Test') {
+            when {
+                // Task 3: Condition check
+                expression { return params.RUN_TEST }
+            }
+            steps {
+                // Task 3: Execute BAT command
+                bat 'echo Running Test'
+            }
+        }
+    }
+}
